@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { postValidation, updateValidation } from "../utilities/video-validation";
+import { checkServerIdentity } from "tls";
 
 const videos: any = []
 
@@ -12,7 +13,11 @@ videosRouter.get('/', (req: Request, res: Response) => {
 
 videosRouter.get('/:id', (req: Request, res: Response) => {
   const video = videos.find((v: { id: number; }) => v.id === +req.params.id)
-  res.send(video)
+  if (video) {
+    res.status(200).send(video)
+  } else {
+    res.sendStatus(404)
+  }
 })
 
 videosRouter.post('/', (req: Request, res: Response) => {
