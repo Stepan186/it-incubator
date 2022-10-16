@@ -9,5 +9,7 @@
  P2160 = "P2160"
 }
 
+interface Video {
 
+}
 
